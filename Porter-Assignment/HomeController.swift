@@ -10,11 +10,12 @@ import UIKit
 import MapKit
 
 class HomeController: UIViewController {
-    //  @IBOutlet weak var pickupButton: UIButton!
-    //  @IBOutlet weak var dropButton: UIButton!
+    
+    @IBOutlet weak var pickUpLabel: UILabel!
+    @IBOutlet weak var dropLabel: UILabel!
     
     @IBOutlet weak var mapView: MKMapView!
-    //  @IBOutlet weak var bookButton: UIButton!
+    
     /* Service */
     private var porterService: PorterService = HttpPorterService()
     
@@ -28,6 +29,14 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initViews()
+        setupTapGestures()
+    }
+    
+    private func setupTapGestures() {
+        pickUpLabel.isUserInteractionEnabled = true
+        pickUpLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapPickupLocation)))
+        dropLabel.isUserInteractionEnabled = true
+        dropLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapDropLocation)))
     }
     
     private func initViews() {
@@ -39,14 +48,33 @@ class HomeController: UIViewController {
     }
     
     @objc private func didTapPickupLocation() {
-        performSegue(withIdentifier: Segues.SearchLocation.rawValue, sender: self)
+        performSegue(withIdentifier: Segues.SearchLocation.rawValue, sender: SearchType.from)
     }
     
     @objc private func didTapDropLocation() {
-        performSegue(withIdentifier: Segues.SearchLocation.rawValue, sender: self)
+        performSegue(withIdentifier: Segues.SearchLocation.rawValue, sender: SearchType.to)
     }
     
     @objc private func didTapBook() {
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? SearchController, let searchType = sender as? SearchType else {
+            return
+        }
+        vc.delegate = self
+        vc.searchType = searchType
+    }
+}
+
+extension HomeController: SearchControllerDelegate {
+    
+    func didSelect(location: MKMapItem, searchType: SearchType) {
+        if searchType == .from {
+            self.pickUpLabel.text = location.name
+        } else {
+            self.dropLabel.text = location.name
+        }
     }
 }

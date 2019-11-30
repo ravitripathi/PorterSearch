@@ -9,6 +9,20 @@
 import UIKit
 import MapKit
 
+enum SearchType {
+    case from
+    case to
+    
+    func getTitle() -> String {
+        switch self {
+        case .from:
+            return "Enter Pickup Location"
+        case .to:
+            return "Enter Drop Location"
+        }
+    }
+}
+
 class Utility {
     static func getPlace(fromMapItem mapItem: MKMapItem?) -> Place? {
         guard let mapItem = mapItem,

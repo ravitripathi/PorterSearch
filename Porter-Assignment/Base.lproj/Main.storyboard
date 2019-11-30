@@ -21,10 +21,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MP9-bs-dRu">
                                 <rect key="frame" x="32" y="74" width="350" height="128"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Deu-Lw-OoQ">
-                                        <rect key="frame" x="34" y="92.5" width="296" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Deu-Lw-OoQ">
+                                        <rect key="frame" x="34" y="70" width="296" height="66"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1a-Ib-E0h">
@@ -67,10 +67,10 @@
                                             <constraint firstAttribute="height" constant="2" id="Hv5-o0-sc2"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCz-95-Ref">
-                                        <rect key="frame" x="34" y="14.5" width="296" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCz-95-Ref">
+                                        <rect key="frame" x="34" y="-8" width="296" height="66"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -85,9 +85,11 @@
                                     <constraint firstItem="Deu-Lw-OoQ" firstAttribute="centerY" secondItem="OvN-AH-S4q" secondAttribute="centerY" id="Qqz-bj-XOn"/>
                                     <constraint firstItem="YJ9-Ra-aOF" firstAttribute="top" secondItem="V1a-Ib-E0h" secondAttribute="bottom" id="VwO-zT-v7k"/>
                                     <constraint firstItem="yKg-j0-Lvd" firstAttribute="centerY" secondItem="MP9-bs-dRu" secondAttribute="centerY" id="aLf-Yp-83r"/>
+                                    <constraint firstItem="Deu-Lw-OoQ" firstAttribute="top" secondItem="yKg-j0-Lvd" secondAttribute="bottom" constant="5" id="bXc-ET-nLa"/>
                                     <constraint firstItem="OvN-AH-S4q" firstAttribute="top" secondItem="YJ9-Ra-aOF" secondAttribute="bottom" id="dAj-MS-86S"/>
                                     <constraint firstItem="YJ9-Ra-aOF" firstAttribute="centerX" secondItem="V1a-Ib-E0h" secondAttribute="centerX" id="fsV-kh-sid"/>
                                     <constraint firstItem="gCz-95-Ref" firstAttribute="centerY" secondItem="V1a-Ib-E0h" secondAttribute="centerY" id="mGu-lg-ZfK"/>
+                                    <constraint firstItem="yKg-j0-Lvd" firstAttribute="top" secondItem="gCz-95-Ref" secondAttribute="bottom" constant="5" id="pJ2-qg-1Mn"/>
                                     <constraint firstAttribute="trailing" secondItem="Deu-Lw-OoQ" secondAttribute="trailing" constant="20" symbolic="YES" id="rY0-il-5ej"/>
                                     <constraint firstItem="gCz-95-Ref" firstAttribute="leading" secondItem="V1a-Ib-E0h" secondAttribute="trailing" constant="4" id="rmm-Vs-krA"/>
                                     <constraint firstItem="V1a-Ib-E0h" firstAttribute="top" secondItem="MP9-bs-dRu" secondAttribute="top" constant="20" symbolic="YES" id="v83-xK-c8A"/>
@@ -123,7 +125,9 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="dropLabel" destination="Deu-Lw-OoQ" id="xUq-5g-Azd"/>
                         <outlet property="mapView" destination="hcZ-cy-O6i" id="j4y-JC-V1i"/>
+                        <outlet property="pickUpLabel" destination="gCz-95-Ref" id="EsI-hv-omI"/>
                         <segue destination="vim-AI-yzm" kind="show" identifier="search-location" id="Icn-dn-DEF"/>
                     </connections>
                 </viewController>
@@ -139,37 +143,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awv-4F-Hng">
-                                <rect key="frame" x="347" y="60" width="51" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="2jS-EE-YrI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <state key="normal" title="CANCEL"/>
-                            </button>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EeR-KO-f40">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="nE9-Pn-6Wk">
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="vLI-FH-f6L">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="awv-4F-Hng">
+                                                <rect key="frame" x="343" y="7" width="51" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="2jS-EE-YrI"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                <state key="normal" title="CANCEL"/>
+                                                <connections>
+                                                    <action selector="didTapCancel:" destination="vim-AI-yzm" eventType="touchUpInside" id="0dO-IF-eG2"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UwQ-mh-IAk" customClass="RTSearchBar" customModule="RTSearchBar">
-                                <rect key="frame" x="5" y="100" width="404" height="55"/>
+                                <rect key="frame" x="16" y="104" width="382" height="55"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="Dpd-iD-TQz"/>
+                                    <constraint firstAttribute="height" constant="55" id="VtF-l9-9oK"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="UwQ-mh-IAk" firstAttribute="leading" secondItem="MYT-w8-CGm" secondAttribute="leading" constant="5" id="2v5-Ea-3M4"/>
-                            <constraint firstItem="MYT-w8-CGm" firstAttribute="trailing" secondItem="awv-4F-Hng" secondAttribute="trailing" constant="16" id="9ka-M7-nza"/>
-                            <constraint firstItem="awv-4F-Hng" firstAttribute="top" secondItem="MYT-w8-CGm" secondAttribute="top" constant="16" id="BYo-9A-BhM"/>
-                            <constraint firstItem="awv-4F-Hng" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MYT-w8-CGm" secondAttribute="leading" symbolic="YES" id="ipJ-yg-edX"/>
-                            <constraint firstItem="MYT-w8-CGm" firstAttribute="trailing" secondItem="UwQ-mh-IAk" secondAttribute="trailing" constant="5" id="uPJ-aV-a67"/>
-                            <constraint firstItem="UwQ-mh-IAk" firstAttribute="top" secondItem="awv-4F-Hng" secondAttribute="bottom" constant="10" id="zHM-Qy-Frn"/>
+                            <constraint firstItem="UwQ-mh-IAk" firstAttribute="leading" secondItem="MYT-w8-CGm" secondAttribute="leading" constant="16" id="EXA-qW-qN7"/>
+                            <constraint firstItem="EeR-KO-f40" firstAttribute="leading" secondItem="MYT-w8-CGm" secondAttribute="leading" id="KtV-h3-Pj7"/>
+                            <constraint firstItem="EeR-KO-f40" firstAttribute="top" secondItem="MYT-w8-CGm" secondAttribute="top" id="bz2-7G-xCq"/>
+                            <constraint firstItem="MYT-w8-CGm" firstAttribute="trailing" secondItem="UwQ-mh-IAk" secondAttribute="trailing" constant="16" id="j9p-Zm-7e1"/>
+                            <constraint firstItem="UwQ-mh-IAk" firstAttribute="top" secondItem="EeR-KO-f40" secondAttribute="bottom" constant="16" id="nKN-Zw-jhV"/>
+                            <constraint firstItem="EeR-KO-f40" firstAttribute="trailing" secondItem="MYT-w8-CGm" secondAttribute="trailing" id="upj-bQ-ElX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MYT-w8-CGm"/>
                     </view>
                     <navigationItem key="navigationItem" id="qnK-Z6-gtZ"/>
                     <connections>
-                        <outlet property="cancelButton" destination="awv-4F-Hng" id="ZVt-dK-s2P"/>
                         <outlet property="searchBar" destination="UwQ-mh-IAk" id="kIG-o9-m1D"/>
+                        <outlet property="titleItem" destination="nE9-Pn-6Wk" id="4yk-si-sVc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ROJ-Pq-vMX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

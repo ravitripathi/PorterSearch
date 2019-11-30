@@ -11,31 +11,33 @@ import MapKit
 import RTSearchBar
 
 protocol SearchControllerDelegate {
-    func didSelect(location: MKMapItem)
+    func didSelect(location: MKMapItem, searchType: SearchType)
 }
 
 class SearchController: UIViewController {
-    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var searchBar: RTSearchBar!
-    
+    var searchType: SearchType?
     var delegate: SearchControllerDelegate?
     private var places: [MKMapItem]?
-    /* Service */
+    @IBOutlet weak var titleItem: UINavigationItem!
+    
+    @IBAction func didTapCancel(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
     private var placesService: PlacesService = MapKitPlacesService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.titleItem.title = self.searchType?.getTitle()
         initViews()
     }
     
     private func initViews() {
-        cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
+        searchBar.cellStyle = CellTypes.subtitleCell.rawValue
+        searchBar.animationDelay = 0.2
         searchBar.dataSource = self
         searchBar.delegate = self
-    }
-    
-    @objc private func didTapCancel() {
-        dismiss(animated: true)
     }
 }
 
@@ -44,7 +46,7 @@ extension SearchController: RTSearchBarDataSource {
         return self.places
     }
     
-    func textToBeShown(forData data: Any) -> String? {
+    func textToDisplay(forData data: Any) -> String? {
         guard let place = data as? MKMapItem else {
             return nil
         }
@@ -62,13 +64,18 @@ extension SearchController: RTSearchBarDelegate {
     }
     
     func didSelect(withData data: Any) {
-        guard let item = data as? MKMapItem else {
+        guard let item = data as? MKMapItem, let searchType = self.searchType else {
             return
         }
-        self.delegate?.didSelect(location: item)
+        self.delegate?.didSelect(location: item, searchType: searchType)
         dismiss(animated: true, completion: nil)
     }
     
-    func didEndEditing(text: String) {}
-    func didClear() {}
+    func decorate(cell: UITableViewCell, forData data: Any) -> UITableViewCell {
+        guard let item = data as? MKMapItem else {
+            return cell
+        }
+        cell.detailTextLabel?.text = item.placemark.title
+        return cell
+    }
 }
