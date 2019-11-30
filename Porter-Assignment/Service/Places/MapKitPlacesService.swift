@@ -10,13 +10,13 @@ import Foundation
 import MapKit
 
 class MapKitPlacesService: PlacesService {
-  func search(query: String?, completion: ([Place]) -> Void) {
+  func search(query: String?, completion: @escaping ([MKMapItem]?) -> Void) {
     let request = MKLocalSearch.Request()
     request.naturalLanguageQuery = query
     
     let search = MKLocalSearch(request: request)
     search.start { (response, error) in
-      print(response)
+        completion(response?.mapItems)
     }
   }
 }

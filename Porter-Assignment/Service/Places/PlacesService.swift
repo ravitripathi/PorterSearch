@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import MapKit
 
 protocol PlacesService {
-  func search(query: String?, completion: ([Place]) -> Void)
+  func search(query: String?, completion: @escaping ([MKMapItem]?) -> Void)
 }
