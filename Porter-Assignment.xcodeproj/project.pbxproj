@@ -22,8 +22,8 @@
 		3152F9F6237C154E003E63B2 /* HttpPorterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152F9F5237C154E003E63B2 /* HttpPorterService.swift */; };
 		3152F9F8237C20CB003E63B2 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152F9F7237C20CB003E63B2 /* Segues.swift */; };
 		415075BB2392A12400CCF96D /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415075BA2392A12400CCF96D /* Utility.swift */; };
-		417C9E1723928B8B001AE88E /* RTSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 417C9E1623928B8B001AE88E /* RTSearchBar */; };
-		417C9E1A23928BCD001AE88E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 417C9E1923928BCD001AE88E /* Alamofire */; };
+		41C22A252392C61A00ADB5C8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 41C22A242392C61A00ADB5C8 /* Alamofire */; };
+		41C22A282392C64000ADB5C8 /* RTSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 41C22A272392C64000ADB5C8 /* RTSearchBar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,8 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				417C9E1A23928BCD001AE88E /* Alamofire in Frameworks */,
-				417C9E1723928B8B001AE88E /* RTSearchBar in Frameworks */,
+				41C22A282392C64000ADB5C8 /* RTSearchBar in Frameworks */,
+				41C22A252392C61A00ADB5C8 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +64,6 @@
 			children = (
 				3152F9C7237C014F003E63B2 /* Porter-Assignment */,
 				3152F9C6237C014F003E63B2 /* Products */,
-				FF2C9823F59AECC962DD9288 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,13 +138,6 @@
 			path = Places;
 			sourceTree = "<group>";
 		};
-		FF2C9823F59AECC962DD9288 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -163,8 +155,8 @@
 			);
 			name = "Porter-Assignment";
 			packageProductDependencies = (
-				417C9E1623928B8B001AE88E /* RTSearchBar */,
-				417C9E1923928BCD001AE88E /* Alamofire */,
+				41C22A242392C61A00ADB5C8 /* Alamofire */,
+				41C22A272392C64000ADB5C8 /* RTSearchBar */,
 			);
 			productName = "Porter-Assignment";
 			productReference = 3152F9C5237C014F003E63B2 /* Assignment.app */;
@@ -195,8 +187,8 @@
 			);
 			mainGroup = 3152F9BC237C014F003E63B2;
 			packageReferences = (
-				417C9E1523928B8B001AE88E /* XCRemoteSwiftPackageReference "RTSearchBar" */,
-				417C9E1823928BCD001AE88E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				41C22A232392C61A00ADB5C8 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				41C22A262392C64000ADB5C8 /* XCRemoteSwiftPackageReference "RTSearchBar" */,
 			);
 			productRefGroup = 3152F9C6237C014F003E63B2 /* Products */;
 			projectDirPath = "";
@@ -438,34 +430,34 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		417C9E1523928B8B001AE88E /* XCRemoteSwiftPackageReference "RTSearchBar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ravitripathi/RTSearchBar";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.6.1;
-			};
-		};
-		417C9E1823928BCD001AE88E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		41C22A232392C61A00ADB5C8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
-				kind = exactVersion;
-				version = "5.0.0-rc.3";
+				kind = upToNextMajorVersion;
+				minimumVersion = "5.0.0-rc.3";
+			};
+		};
+		41C22A262392C64000ADB5C8 /* XCRemoteSwiftPackageReference "RTSearchBar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ravitripathi/RTSearchBar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		417C9E1623928B8B001AE88E /* RTSearchBar */ = {
+		41C22A242392C61A00ADB5C8 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 417C9E1523928B8B001AE88E /* XCRemoteSwiftPackageReference "RTSearchBar" */;
-			productName = RTSearchBar;
-		};
-		417C9E1923928BCD001AE88E /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 417C9E1823928BCD001AE88E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 41C22A232392C61A00ADB5C8 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		41C22A272392C64000ADB5C8 /* RTSearchBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41C22A262392C64000ADB5C8 /* XCRemoteSwiftPackageReference "RTSearchBar" */;
+			productName = RTSearchBar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
