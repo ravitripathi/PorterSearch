@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="HomeController" customModule="Assignment" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLZ-rS-Vm3">
+                                <rect key="frame" x="16" y="60" width="47" height="27"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <state key="normal" title="PICKUP"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTo-qW-5fS">
+                                <rect key="frame" x="16" y="95" width="35" height="27"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <state key="normal" title="DROP"/>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hcZ-cy-O6i">
+                                <rect key="frame" x="16" y="138" width="382" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Kkb-Uz-P26"/>
+                                </constraints>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQQ-jd-jwI">
+                                <rect key="frame" x="16" y="354" width="70" height="27"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <state key="normal" title="BOOK NOW"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="hcZ-cy-O6i" firstAttribute="top" secondItem="eTo-qW-5fS" secondAttribute="bottom" constant="16" id="1Gg-AC-asD"/>
+                            <constraint firstItem="jQQ-jd-jwI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="7Qt-ac-dhr"/>
+                            <constraint firstItem="gLZ-rS-Vm3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="9JC-GU-v4B"/>
+                            <constraint firstItem="eTo-qW-5fS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Gyf-C8-QHx"/>
+                            <constraint firstItem="eTo-qW-5fS" firstAttribute="top" secondItem="gLZ-rS-Vm3" secondAttribute="bottom" constant="8" id="Nsb-Bu-Nbh"/>
+                            <constraint firstItem="gLZ-rS-Vm3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="TG8-5w-BhD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hcZ-cy-O6i" secondAttribute="trailing" constant="16" id="Xqe-fD-OUp"/>
+                            <constraint firstItem="hcZ-cy-O6i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="YKT-VF-ctF"/>
+                            <constraint firstItem="jQQ-jd-jwI" firstAttribute="top" secondItem="hcZ-cy-O6i" secondAttribute="bottom" constant="16" id="nrB-I9-b1U"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="bookButton" destination="jQQ-jd-jwI" id="OVh-QX-kbK"/>
+                        <outlet property="dropButton" destination="eTo-qW-5fS" id="odW-N4-0d2"/>
+                        <outlet property="mapView" destination="hcZ-cy-O6i" id="j4y-JC-V1i"/>
+                        <outlet property="pickupButton" destination="gLZ-rS-Vm3" id="eUn-0u-uR2"/>
+                        <segue destination="vim-AI-yzm" kind="show" identifier="search-location" id="Icn-dn-DEF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+        <!--Search Controller-->
+        <scene sceneID="w9T-8n-JI1">
+            <objects>
+                <viewController id="vim-AI-yzm" customClass="SearchController" customModule="Assignment" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jfu-kX-0ch">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awv-4F-Hng">
+                                <rect key="frame" x="347" y="16" width="51" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2jS-EE-YrI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <state key="normal" title="CANCEL"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UwQ-mh-IAk" customClass="RTSearchBar" customModule="RTSearchBar">
+                                <rect key="frame" x="5" y="56" width="404" height="55"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Dpd-iD-TQz"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="UwQ-mh-IAk" firstAttribute="leading" secondItem="MYT-w8-CGm" secondAttribute="leading" constant="5" id="2v5-Ea-3M4"/>
+                            <constraint firstItem="MYT-w8-CGm" firstAttribute="trailing" secondItem="awv-4F-Hng" secondAttribute="trailing" constant="16" id="9ka-M7-nza"/>
+                            <constraint firstItem="awv-4F-Hng" firstAttribute="top" secondItem="MYT-w8-CGm" secondAttribute="top" constant="16" id="BYo-9A-BhM"/>
+                            <constraint firstItem="awv-4F-Hng" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MYT-w8-CGm" secondAttribute="leading" symbolic="YES" id="ipJ-yg-edX"/>
+                            <constraint firstItem="MYT-w8-CGm" firstAttribute="trailing" secondItem="UwQ-mh-IAk" secondAttribute="trailing" constant="5" id="uPJ-aV-a67"/>
+                            <constraint firstItem="UwQ-mh-IAk" firstAttribute="top" secondItem="awv-4F-Hng" secondAttribute="bottom" constant="10" id="zHM-Qy-Frn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MYT-w8-CGm"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qnK-Z6-gtZ"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="awv-4F-Hng" id="ZVt-dK-s2P"/>
+                        <outlet property="searchBar" destination="UwQ-mh-IAk" id="kIG-o9-m1D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ROJ-Pq-vMX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="924.63768115942037" y="137.94642857142856"/>
+        </scene>
+    </scenes>
+</document>
