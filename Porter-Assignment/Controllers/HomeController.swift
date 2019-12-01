@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import RappleProgressHUD
 
 class HomeController: UIViewController {
     
@@ -16,14 +17,13 @@ class HomeController: UIViewController {
     @IBOutlet weak var dropLabel: UILabel!
     @IBOutlet weak var dropValueLabel: UILabel!
     
+    @IBOutlet weak var blockedLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var mapView: MKMapView!
     
     var fromPin: MKAnnotation?
     var toPin: MKAnnotation?
     var pricing: PricingResponse?
     var eta: EtaResponse?
-    
-    private var placesService = MapKitPlacesService()
     
     let locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -36,22 +36,19 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         self.mapView.delegate = self
         initViews()
-        setupTapGestures()
         setupTitles()
+        setupTapGestures()
     }
     
-    func setupTitles() {
-        pickUpValueLabel.text = ""
-        dropLabel.text = ""
-        dropValueLabel.textColor = .systemGray
-        dropValueLabel.text = "To"
-    }
-    
-    private func setupTapGestures() {
-        pickUpLabel.isUserInteractionEnabled = true
-        pickUpLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapPickupLocation)))
-        dropValueLabel.isUserInteractionEnabled = true
-        dropValueLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapDropLocation)))
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        ServiceManager.porter.fetchServiceable { (servicableResponse) in
+            if !servicableResponse.serviceable {
+                self.blockedLabelHeightConstraint.constant = 21.0
+            } else {
+                self.blockedLabelHeightConstraint.constant = 0.0
+            }
+        }
     }
     
     private func initViews() {
@@ -66,16 +63,26 @@ class HomeController: UIViewController {
         button.anchor(top: nil, left: nil, bottom: self.mapView.bottomAnchor, right: self.mapView.rightAnchor, paddingTop: 0.0, paddingLeft: 0.0, paddingBottom: 16.0, paddingRight: 16.0, width: 32.0, height: 32.0)
     }
     
+    private func setupTitles() {
+        pickUpValueLabel.text = ""
+        dropLabel.text = ""
+        dropValueLabel.textColor = .systemGray
+        dropValueLabel.text = "To"
+    }
+    
+    private func setupTapGestures() {
+        pickUpLabel.isUserInteractionEnabled = true
+        pickUpLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapPickupLocation)))
+        dropValueLabel.isUserInteractionEnabled = true
+        dropValueLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapDropLocation)))
+    }
+    
     @objc private func didTapPickupLocation() {
         performSegue(withIdentifier: Segues.SearchLocation.rawValue, sender: SearchType.from)
     }
     
     @objc private func didTapDropLocation() {
         performSegue(withIdentifier: Segues.SearchLocation.rawValue, sender: SearchType.to)
-    }
-    
-    @objc private func didTapBook() {
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -85,8 +92,6 @@ class HomeController: UIViewController {
         vc.delegate = self
         vc.searchType = searchType
     }
-    
-    
 }
 
 extension HomeController: SearchControllerDelegate {
@@ -128,8 +133,7 @@ extension HomeController: MKMapViewDelegate {
         annotation.coordinate = userLocation.coordinate
         
         self.pickUpValueLabel.text = "Looking up...."
-        
-        self.placesService.lookUpCurrent(location: userLocation.location) { (placeMark) in
+        ServiceManager.places.lookUpCurrent(location: userLocation.location) { (placeMark) in
             self.pickUpValueLabel.text = placeMark?.name
         }
         self.mapView.setCenter(userLocation.coordinate, animated: true)
@@ -172,13 +176,9 @@ extension HomeController: MKMapViewDelegate {
 
 extension HomeController: CustomAnnotationViewDelegate {
     func bookNowTapped() {
-        print("tapped")
+        RappleActivityIndicatorView.startAnimatingWithLabel("Book Now Tapped", attributes: [RappleIndicatorStyleKey: RappleStyleApple])
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            RappleActivityIndicatorView.stopAnimation()
+        }
     }
-}
-
-
-extension CLLocationCoordinate2D: Equatable {}
-
-public func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-    return (lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude)
 }

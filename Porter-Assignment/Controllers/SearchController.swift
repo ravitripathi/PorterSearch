@@ -33,9 +33,6 @@ class SearchController: UIViewController {
         dismiss(animated: true)
     }
     
-    private var placesService: PlacesService = MapKitPlacesService()
-    private var porterService: PorterService = HttpPorterService()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.titleItem.title = self.searchType?.getTitle()
@@ -53,12 +50,13 @@ class SearchController: UIViewController {
         let locationModel = Location(lat: mapItem.placemark.coordinate.latitude, lng: mapItem.placemark.coordinate.longitude)
         RappleActivityIndicatorView.startAnimatingWithLabel("Fetching Data...")
         group.enter()
-        porterService.fetchEta(location: locationModel) { (etaResponse) in
+        
+        ServiceManager.porter.fetchEta(location: locationModel) { (etaResponse) in
             self.eta = etaResponse
             self.group.leave()
         }
         group.enter()
-        porterService.fetchPrice(location: locationModel) { (pricingResponse) in
+        ServiceManager.porter.fetchPrice(location: locationModel) { (pricingResponse) in
             self.pricing = pricingResponse
             self.group.leave()
         }
@@ -87,7 +85,7 @@ extension SearchController: RTSearchBarDataSource {
 extension SearchController: RTSearchBarDelegate {
     
     func didChange(text: String) {
-        placesService.search(query: text) { (places) in
+        ServiceManager.places.search(query: text) { (places) in
             self.places = places
             self.searchBar.reload()
         }

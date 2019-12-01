@@ -138,19 +138,40 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Account is blocked" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWw-wn-4FE">
+                                <rect key="frame" x="32" y="246" width="350" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" staticText="YES" allowsDirectInteraction="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="NGw-Od-6XQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0hh-na-9KN" secondAttribute="trailing" id="1zU-is-vdu"/>
                             <constraint firstItem="MP9-bs-dRu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="2K2-iT-hGb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hcZ-cy-O6i" secondAttribute="bottom" id="3Ar-kX-adX"/>
+                            <constraint firstItem="iWw-wn-4FE" firstAttribute="trailing" secondItem="MP9-bs-dRu" secondAttribute="trailing" id="44H-0t-gqw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hcZ-cy-O6i" secondAttribute="trailing" id="8Oa-mU-TlS"/>
+                            <constraint firstItem="iWw-wn-4FE" firstAttribute="top" secondItem="MP9-bs-dRu" secondAttribute="bottom" id="9GE-Oy-gYo"/>
                             <constraint firstItem="0hh-na-9KN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Dy0-Ao-vIL"/>
                             <constraint firstItem="MP9-bs-dRu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MYQ-h7-bwz"/>
                             <constraint firstItem="0hh-na-9KN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PhN-Eg-mY8"/>
                             <constraint firstItem="hcZ-cy-O6i" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Wax-eq-Nhe"/>
                             <constraint firstItem="hcZ-cy-O6i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="adr-Lo-gF0"/>
                             <constraint firstItem="MP9-bs-dRu" firstAttribute="top" secondItem="0hh-na-9KN" secondAttribute="bottom" constant="30" id="lSN-kH-p2l"/>
+                            <constraint firstItem="iWw-wn-4FE" firstAttribute="leading" secondItem="MP9-bs-dRu" secondAttribute="leading" id="mbW-kI-RE0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MP9-bs-dRu" secondAttribute="trailing" constant="32" id="njD-Qp-Cek"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -158,6 +179,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="blockedLabelHeightConstraint" destination="NGw-Od-6XQ" id="Zs2-q5-wgh"/>
                         <outlet property="dropLabel" destination="0Pr-Nq-Ths" id="FeS-c3-yC1"/>
                         <outlet property="dropValueLabel" destination="Deu-Lw-OoQ" id="II7-sk-yl8"/>
                         <outlet property="mapView" destination="hcZ-cy-O6i" id="j4y-JC-V1i"/>

@@ -10,5 +10,7 @@ import Foundation
 import MapKit
 
 protocol PlacesService {
-  func search(query: String?, completion: @escaping ([MKMapItem]?) -> Void)
+    func search(query: String?, completion: @escaping ([MKMapItem]?) -> Void)
+    func lookUpCurrent(location: CLLocation?, completionHandler: @escaping (CLPlacemark?)
+        -> Void )
 }
