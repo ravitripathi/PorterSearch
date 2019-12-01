@@ -14,21 +14,12 @@ class HomeController: UIViewController {
     @IBOutlet weak var pickUpLabel: UILabel!
     @IBOutlet weak var dropLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
-    let group = DispatchGroup()
-    var fromPin: MKAnnotation?
-    var toPin: MKAnnotation? {
-        didSet(value) {
-            guard let coordinate = value?.coordinate else {
-                return
-            }
-            self.fetchPricingAndEta(forLocation: coordinate)
-        }
-    }
-    var pricing: String = ""
-    var eta: String = ""
     
-    /* Service */
-    private var porterService: PorterService = HttpPorterService()
+    var fromPin: MKAnnotation?
+    var toPin: MKAnnotation?
+    var pricing: PricingResponse?
+    var eta: EtaResponse?
+    
     private var placesService = MapKitPlacesService()
     
     let locationManager: CLLocationManager = {
@@ -89,26 +80,31 @@ class HomeController: UIViewController {
 
 extension HomeController: SearchControllerDelegate {
     
-    func didSelect(location: MKMapItem, searchType: SearchType) {
+    func didSelectFrom(location: MKMapItem) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = location.placemark.coordinate
-        
-        if searchType == .from {
-            self.pickUpLabel.text = location.name
-            if let fromPin = self.fromPin {
-                self.mapView.removeAnnotation(fromPin)
-            }
-            self.fromPin = annotation
-        } else {
-            self.dropLabel.text = location.name
-            if let toPin = self.toPin {
-                self.mapView.removeAnnotation(toPin)
-            }
-            self.toPin = annotation
+        self.pickUpLabel.text = location.name
+        if let fromPin = self.fromPin {
+            self.mapView.removeAnnotation(fromPin)
         }
-        
+        self.fromPin = annotation
         self.mapView.addAnnotation(annotation)
         self.mapView.setCenter(location.placemark.coordinate, animated: true)
+    }
+    
+    func didSelectTo(location: MKMapItem, pricing: PricingResponse?, eta: EtaResponse?) {
+        self.pricing = pricing
+        self.eta = eta
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location.placemark.coordinate
+        self.dropLabel.text = location.name
+        if let toPin = self.toPin {
+            self.mapView.removeAnnotation(toPin)
+        }
+        self.toPin = annotation
+        self.mapView.addAnnotation(annotation)
+        self.mapView.setCenter(location.placemark.coordinate, animated: true)
+        self.mapView.selectAnnotation(annotation, animated: true)
     }
 }
 
@@ -150,10 +146,14 @@ extension HomeController: MKMapViewDelegate {
         let view = UIView()
         let priceLabel = UILabel()
         priceLabel.textColor = UIColor.white
-        priceLabel.text = self.pricing
+        if let cost = self.pricing?.cost {
+            priceLabel.text = "Rs \(cost)"
+        }
         let timeLabel = UILabel()
         timeLabel.textColor = UIColor.white
-        timeLabel.text = "•\(self.eta)"
+        if let etaTime = self.eta?.eta {
+            timeLabel.text = "•\(etaTime) min"
+        }
         view.addSubview(priceLabel)
         view.addSubview(timeLabel)
         
@@ -161,28 +161,5 @@ extension HomeController: MKMapViewDelegate {
         timeLabel.anchor(top: view.topAnchor, left: priceLabel.rightAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0.0, paddingLeft: 0.0, paddingBottom: 0.0, paddingRight: 0.0, width: 0.0, height: 0.0)
         view.backgroundColor = UIColor.blue
         return view
-    }
-}
-
-extension HomeController {
-    
-    func fetchPricingAndEta(forLocation location: CLLocationCoordinate2D) {
-        let locationModel = Location(lat: location.latitude, lng: location.longitude)
-        group.enter()
-        porterService.fetchEta(location: locationModel) { (etaResponse) in
-            self.eta = "\(etaResponse.eta) min"
-            self.group.leave()
-        }
-        group.enter()
-        porterService.fetchPrice(location: locationModel) { (pricingResponse) in
-            self.pricing = "Rs \(pricingResponse.cost)"
-            self.group.leave()
-        }
-        
-        group.notify(queue: .main) {
-            if let toPin = self.toPin{
-                self.mapView.selectAnnotation(toPin, animated: true)
-            }
-        }
     }
 }

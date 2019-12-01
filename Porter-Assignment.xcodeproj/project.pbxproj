@@ -22,7 +22,7 @@
 		3152F9F6237C154E003E63B2 /* HttpPorterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152F9F5237C154E003E63B2 /* HttpPorterService.swift */; };
 		3152F9F8237C20CB003E63B2 /* Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152F9F7237C20CB003E63B2 /* Segues.swift */; };
 		415075BB2392A12400CCF96D /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415075BA2392A12400CCF96D /* Utility.swift */; };
-		416098D5239312F70025ADC6 /* PorterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416098D4239312F70025ADC6 /* PorterAnnotationView.swift */; };
+		416098D82393F8B10025ADC6 /* RappleProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 416098D72393F8B10025ADC6 /* RappleProgressHUD */; };
 		41C22A252392C61A00ADB5C8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 41C22A242392C61A00ADB5C8 /* Alamofire */; };
 		41C22A2B2392E06B00ADB5C8 /* RTSearchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 41C22A2A2392E06B00ADB5C8 /* RTSearchBar */; };
 /* End PBXBuildFile section */
@@ -46,7 +46,6 @@
 		3152F9F7237C20CB003E63B2 /* Segues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segues.swift; sourceTree = "<group>"; };
 		415075BA2392A12400CCF96D /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		416098D323930F4C0025ADC6 /* Assignment.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Assignment.entitlements; sourceTree = "<group>"; };
-		416098D4239312F70025ADC6 /* PorterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorterAnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +55,7 @@
 			files = (
 				41C22A2B2392E06B00ADB5C8 /* RTSearchBar in Frameworks */,
 				41C22A252392C61A00ADB5C8 /* Alamofire in Frameworks */,
+				416098D82393F8B10025ADC6 /* RappleProgressHUD in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,6 @@
 				3152F9D3237C0150003E63B2 /* Splash.storyboard */,
 				3152F9D6237C0150003E63B2 /* Info.plist */,
 				415075BA2392A12400CCF96D /* Utility.swift */,
-				416098D4239312F70025ADC6 /* PorterAnnotationView.swift */,
 			);
 			path = "Porter-Assignment";
 			sourceTree = "<group>";
@@ -162,6 +161,7 @@
 			packageProductDependencies = (
 				41C22A242392C61A00ADB5C8 /* Alamofire */,
 				41C22A2A2392E06B00ADB5C8 /* RTSearchBar */,
+				416098D72393F8B10025ADC6 /* RappleProgressHUD */,
 			);
 			productName = "Porter-Assignment";
 			productReference = 3152F9C5237C014F003E63B2 /* Assignment.app */;
@@ -194,6 +194,7 @@
 			packageReferences = (
 				41C22A232392C61A00ADB5C8 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				41C22A292392E06B00ADB5C8 /* XCRemoteSwiftPackageReference "RTSearchBar" */,
+				416098D62393F8B10025ADC6 /* XCRemoteSwiftPackageReference "RappleProgressHUD" */,
 			);
 			productRefGroup = 3152F9C6237C014F003E63B2 /* Products */;
 			projectDirPath = "";
@@ -222,7 +223,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				416098D5239312F70025ADC6 /* PorterAnnotationView.swift in Sources */,
 				3152F9CD237C014F003E63B2 /* HomeController.swift in Sources */,
 				3152F9F8237C20CB003E63B2 /* Segues.swift in Sources */,
 				3152F9EE237C0D74003E63B2 /* MapKitPlacesService.swift in Sources */,
@@ -448,6 +448,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		416098D62393F8B10025ADC6 /* XCRemoteSwiftPackageReference "RappleProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rjeprasad/RappleProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.3;
+			};
+		};
 		41C22A232392C61A00ADB5C8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -467,6 +475,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		416098D72393F8B10025ADC6 /* RappleProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 416098D62393F8B10025ADC6 /* XCRemoteSwiftPackageReference "RappleProgressHUD" */;
+			productName = RappleProgressHUD;
+		};
 		41C22A242392C61A00ADB5C8 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 41C22A232392C61A00ADB5C8 /* XCRemoteSwiftPackageReference "Alamofire" */;

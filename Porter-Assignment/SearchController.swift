@@ -9,16 +9,24 @@
 import UIKit
 import MapKit
 import RTSearchBar
+import RappleProgressHUD
 
 protocol SearchControllerDelegate {
-    func didSelect(location: MKMapItem, searchType: SearchType)
+    func didSelectFrom(location: MKMapItem)
+    func didSelectTo(location: MKMapItem, pricing: PricingResponse?, eta: EtaResponse?)
 }
 
 class SearchController: UIViewController {
+    
+    var pricing: PricingResponse?
+    var eta: EtaResponse?
+    
     @IBOutlet weak var searchBar: RTSearchBar!
     var searchType: SearchType?
     var delegate: SearchControllerDelegate?
     private var places: [MKMapItem]?
+    let group = DispatchGroup()
+    
     @IBOutlet weak var titleItem: UINavigationItem!
     
     @IBAction func didTapCancel(_ sender: UIButton) {
@@ -26,6 +34,7 @@ class SearchController: UIViewController {
     }
     
     private var placesService: PlacesService = MapKitPlacesService()
+    private var porterService: PorterService = HttpPorterService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +47,27 @@ class SearchController: UIViewController {
         searchBar.animationDelay = 0.2
         searchBar.dataSource = self
         searchBar.delegate = self
+    }
+    
+    func fetchPricingAndEta(forMKMapItem mapItem: MKMapItem) {
+        let locationModel = Location(lat: mapItem.placemark.coordinate.latitude, lng: mapItem.placemark.coordinate.longitude)
+        RappleActivityIndicatorView.startAnimatingWithLabel("Fetching Data...")
+        group.enter()
+        porterService.fetchEta(location: locationModel) { (etaResponse) in
+            self.eta = etaResponse
+            self.group.leave()
+        }
+        group.enter()
+        porterService.fetchPrice(location: locationModel) { (pricingResponse) in
+            self.pricing = pricingResponse
+            self.group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            RappleActivityIndicatorView.stopAnimation()
+            self.delegate?.didSelectTo(location: mapItem, pricing: self.pricing, eta: self.eta)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -67,8 +97,12 @@ extension SearchController: RTSearchBarDelegate {
         guard let item = data as? MKMapItem, let searchType = self.searchType else {
             return
         }
-        self.delegate?.didSelect(location: item, searchType: searchType)
-        dismiss(animated: true, completion: nil)
+        if searchType == .from {
+            self.delegate?.didSelectFrom(location: item)
+            dismiss(animated: true, completion: nil)
+        } else {
+            self.fetchPricingAndEta(forMKMapItem: item)
+        }
     }
     
     func decorate(cell: UITableViewCell, forData data: Any) -> UITableViewCell {

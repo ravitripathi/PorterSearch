@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "RappleProgressHUD",
+        "repositoryURL": "https://github.com/rjeprasad/RappleProgressHUD.git",
+        "state": {
+          "branch": null,
+          "revision": "114d8ff6198086c9ab8f339bddcb76472df1b0a8",
+          "version": "4.0.3"
+        }
+      },
+      {
         "package": "RTSearchBar",
         "repositoryURL": "https://github.com/ravitripathi/RTSearchBar.git",
         "state": {
