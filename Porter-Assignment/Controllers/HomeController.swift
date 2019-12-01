@@ -12,7 +12,10 @@ import MapKit
 class HomeController: UIViewController {
     
     @IBOutlet weak var pickUpLabel: UILabel!
+    @IBOutlet weak var pickUpValueLabel: UILabel!
     @IBOutlet weak var dropLabel: UILabel!
+    @IBOutlet weak var dropValueLabel: UILabel!
+    
     @IBOutlet weak var mapView: MKMapView!
     
     var fromPin: MKAnnotation?
@@ -34,13 +37,21 @@ class HomeController: UIViewController {
         self.mapView.delegate = self
         initViews()
         setupTapGestures()
+        setupTitles()
+    }
+    
+    func setupTitles() {
+        pickUpValueLabel.text = ""
+        dropLabel.text = ""
+        dropValueLabel.textColor = .systemGray
+        dropValueLabel.text = "To"
     }
     
     private func setupTapGestures() {
         pickUpLabel.isUserInteractionEnabled = true
         pickUpLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapPickupLocation)))
-        dropLabel.isUserInteractionEnabled = true
-        dropLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapDropLocation)))
+        dropValueLabel.isUserInteractionEnabled = true
+        dropValueLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapDropLocation)))
     }
     
     private func initViews() {
@@ -83,7 +94,7 @@ extension HomeController: SearchControllerDelegate {
     func didSelectFrom(location: MKMapItem) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = location.placemark.coordinate
-        self.pickUpLabel.text = location.name
+        self.pickUpValueLabel.text = location.name
         if let fromPin = self.fromPin {
             self.mapView.removeAnnotation(fromPin)
         }
@@ -97,7 +108,9 @@ extension HomeController: SearchControllerDelegate {
         self.eta = eta
         let annotation = MKPointAnnotation()
         annotation.coordinate = location.placemark.coordinate
-        self.dropLabel.text = location.name
+        self.dropValueLabel.textColor = UIColor.black
+        self.dropLabel.text = "To"
+        self.dropValueLabel.text = location.name
         if let toPin = self.toPin {
             self.mapView.removeAnnotation(toPin)
         }
@@ -114,10 +127,10 @@ extension HomeController: MKMapViewDelegate {
         let annotation = MKPointAnnotation()
         annotation.coordinate = userLocation.coordinate
         
-        self.pickUpLabel.text = "Looking up...."
+        self.pickUpValueLabel.text = "Looking up...."
         
         self.placesService.lookUpCurrent(location: userLocation.location) { (placeMark) in
-            self.pickUpLabel.text = placeMark?.name
+            self.pickUpValueLabel.text = placeMark?.name
         }
         self.mapView.setCenter(userLocation.coordinate, animated: true)
         

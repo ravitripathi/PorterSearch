@@ -91,17 +91,14 @@
 				3152F9E4237C0B3E003E63B2 /* Model */,
 				3152F9DF237C0934003E63B2 /* Service */,
 				3152F9DC237C02D7003E63B2 /* Delegate */,
-				3152F9CC237C014F003E63B2 /* HomeController.swift */,
-				3152F9DD237C05FD003E63B2 /* SearchController.swift */,
+				4149045D2394437200140BB8 /* Controllers */,
 				3152F9CE237C014F003E63B2 /* Main.storyboard */,
 				3152F9F7237C20CB003E63B2 /* Segues.swift */,
 				3152F9D1237C0150003E63B2 /* Assets.xcassets */,
 				3152F9D3237C0150003E63B2 /* Splash.storyboard */,
 				3152F9D6237C0150003E63B2 /* Info.plist */,
 				415075BA2392A12400CCF96D /* Utility.swift */,
-				416098DF239406CE0025ADC6 /* CustomAnnotationView.swift */,
-				416098E1239406DD0025ADC6 /* CustomAnnotationView.xib */,
-				4149045823942B3700140BB8 /* CustomBubbleAnnotationView.swift */,
+				4149045C2394435B00140BB8 /* Views */,
 			);
 			path = "Porter-Assignment";
 			sourceTree = "<group>";
@@ -149,6 +146,25 @@
 				3152F9ED237C0D74003E63B2 /* MapKitPlacesService.swift */,
 			);
 			path = Places;
+			sourceTree = "<group>";
+		};
+		4149045C2394435B00140BB8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				416098DF239406CE0025ADC6 /* CustomAnnotationView.swift */,
+				416098E1239406DD0025ADC6 /* CustomAnnotationView.xib */,
+				4149045823942B3700140BB8 /* CustomBubbleAnnotationView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4149045D2394437200140BB8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3152F9CC237C014F003E63B2 /* HomeController.swift */,
+				3152F9DD237C05FD003E63B2 /* SearchController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
