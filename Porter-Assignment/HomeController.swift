@@ -126,40 +126,46 @@ extension HomeController: MKMapViewDelegate {
         }
         self.fromPin = annotation
         self.mapView.addAnnotation(annotation)
+        
+        let region = MKCoordinateRegion(center: self.mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        mapView.setRegion(region, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation { return nil }
-        //Ensure both from and to locations are set
-        guard let _ = self.fromPin, let toPinAnnotation = self.toPin else {
+        if annotation.isKind(of: MKUserLocation.self){
             return nil
         }
-        let annotationView = MKPinAnnotationView(annotation:toPinAnnotation, reuseIdentifier:"toPin")
-        annotationView.isEnabled = true
-        annotationView.canShowCallout = true
-        
-        annotationView.detailCalloutAccessoryView = getAccessoryView()
-        return annotationView
-    }
-    
-    func getAccessoryView() -> UIView {
-        let view = UIView()
-        let priceLabel = UILabel()
-        priceLabel.textColor = UIColor.white
-        if let cost = self.pricing?.cost {
-            priceLabel.text = "Rs \(cost)"
+        guard let toAnnot = self.toPin, toAnnot.coordinate == annotation.coordinate else {
+            return nil
         }
-        let timeLabel = UILabel()
-        timeLabel.textColor = UIColor.white
+        
+        
+        let customView = (Bundle.main.loadNibNamed("CustomAnnotationView", owner: self, options: nil))?.first as! CustomAnnotationView
+        customView.frame = CGRect(x: 0, y: 0, width: 260, height: 50)
+        customView.delegate = self
         if let etaTime = self.eta?.eta {
-            timeLabel.text = "•\(etaTime) min"
+            customView.etaLabel.text = "\(etaTime) min"
+        } else {
+            customView.etaLabel.text = ""
         }
-        view.addSubview(priceLabel)
-        view.addSubview(timeLabel)
-        
-        priceLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: nil, paddingTop: 0.0, paddingLeft: 0.0, paddingBottom: 0.0, paddingRight: 0.0, width: 0.0, height: 0.0)
-        timeLabel.anchor(top: view.topAnchor, left: priceLabel.rightAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0.0, paddingLeft: 0.0, paddingBottom: 0.0, paddingRight: 0.0, width: 0.0, height: 0.0)
-        view.backgroundColor = UIColor.blue
-        return view
+        if let cost = self.pricing?.cost {
+            customView.priceLabel.text = "Rs \(cost)"
+        } else {
+            customView.priceLabel.text = ""
+        }
+        return customView
     }
+}
+
+extension HomeController: CustomAnnotationViewDelegate {
+    func bookNowTapped() {
+        print("tapped")
+    }
+}
+
+
+extension CLLocationCoordinate2D: Equatable {}
+
+public func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+    return (lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude)
 }
